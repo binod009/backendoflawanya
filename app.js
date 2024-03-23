@@ -30,6 +30,7 @@ app.get("/", (req, res, next) => {
     msg: "hello from server",
   });
 });
+
 app.use(routes);
 
 app.use((req, res, next) => {
