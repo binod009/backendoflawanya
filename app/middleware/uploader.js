@@ -2,7 +2,7 @@ const multer = require("multer");
 
 const myStorage = multer.diskStorage({
   destination: (req, file, next) => {
-    let path = "public/";
+    let path = "public/static";
     next(null, path);
   },
   filename: (req, file, next) => {
