@@ -51,7 +51,7 @@ app.use((error, req, res, next) => {
 app.listen(process.env.PORT, "localhost", (err) => {
   if (!err) {
     console.log("Server is Listening to the Port", 3005);
-    console.log("Server is Listening...", PORT);
+
     console.log("Press CTRl+C to Disconnect");
   }
 });
