@@ -4,9 +4,6 @@
     {
       "src": "app.js",
       "use": "@vercel/node"
-    },
-    {
-      "public": true
     }
   ],
   "routes": [
