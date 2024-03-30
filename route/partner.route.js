@@ -7,7 +7,7 @@ const app = express.Router();
 app
   .route("/partner")
   .post(Auth, uploader.single("image"), partner_ctrl.CreatePartner)
-  .get(Auth, partner_ctrl.getAllPartner);
+  .get(partner_ctrl.getAllPartner);
 
 app.route("/partner/:id/:pid").delete(Auth, partner_ctrl.deletePartner);
 

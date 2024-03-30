@@ -7,7 +7,7 @@ const app = express.Router();
 app
   .route("/programme")
   .post(Auth, programme_ctrl.CreateNewProgramme)
-  .get(Auth, programme_ctrl.getProgramme);
+  .get(programme_ctrl.getProgramme);
 
 app.route("/programme/:id").delete(Auth, programme_ctrl.deleteProgramme);
 

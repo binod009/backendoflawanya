@@ -8,7 +8,7 @@ const app = express.Router();
 
 app
   .route("/banner")
-  .get(Auth, banner_ctrl.GetAllBanner)
+  .get(banner_ctrl.GetAllBanner)
   .post(Auth, uploader.single("image"), banner_ctrl.bannerUpload);
 
 app.route("/banner/:id").delete(Auth, banner_ctrl.deleteBanner);

@@ -8,7 +8,7 @@ const app = express.Router();
 app
   .route("/event")
   .post(Auth, uploader.single("eventimage"), Event_ctrl.CreateEvent)
-  .get(Auth, Event_ctrl.GetEvents);
+  .get(Event_ctrl.GetEvents);
 
 app.route("/:eventid").delete(Auth, Event_ctrl.deleteEvent);
 

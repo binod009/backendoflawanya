@@ -8,7 +8,7 @@ const app = express.Router();
 app
   .route("/testomonial")
   .post(Auth, uploader.single("clientimage"), test_ctrl.createTestomonial)
-  .get(Auth, test_ctrl.GetTestomonial);
+  .get(test_ctrl.GetTestomonial);
 app.route("/testomonial/:id").delete(Auth, test_ctrl.DeleteTestomonial);
 
 module.exports = app;
