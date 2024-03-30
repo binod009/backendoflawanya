@@ -15,7 +15,7 @@ app.use(helmet());
 // Use CORS middleware with options
 app.use(
   Cors({
-    origin: "https://localhost:3000",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"], // Add the HTTP methods you need
     allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you want to allow
   })
