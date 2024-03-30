@@ -17,7 +17,11 @@ app.use(
   Cors({
     origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"], // Add the HTTP methods you need
-    allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you want to allow
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Access-Control-Allow-Origin ",
+    ], // Add the headers you want to allow
   })
 );
 app.use(
