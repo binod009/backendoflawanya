@@ -8,12 +8,18 @@ const app = express();
 app.use(helmet());
 
 //This will allow the frontend to get access my backend {files ,image}
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+//   next();
+// });
 // Use CORS middleware with options
-app.use(Cors());
+app.use(
+  Cors({
+    origin: "https://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"], // Add the HTTP methods you need
+    allowedHeaders: ["Content-Type", "Authorization"], // Add the headers you want to allow
+  })
+);
 app.use(
   express.urlencoded({
     extended: false,
