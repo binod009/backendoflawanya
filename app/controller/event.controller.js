@@ -17,7 +17,7 @@ class EventController {
         folder: "programme",
       });
       body.public_id = result.public_id;
-      body.cloudinary_url = result.cloudinary_url;
+      body.cloudinary_url = result.secure_url;
       this.event_svc.validateEvents(body);
       let data = await this.event_svc.createEvent(body);
       res.status(200).json({

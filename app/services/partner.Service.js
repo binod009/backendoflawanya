@@ -6,7 +6,7 @@ class PartnerService extends DbService {
   validatePartner = (data) => {
     try {
       let partnerSchema = Joi.object({
-        profile_img: Joi.string().required(),
+        public_id: Joi.string().required(),
         cloudinary_url: Joi.string().required(),
         key: Joi.string().required(),
       });
@@ -34,7 +34,7 @@ class PartnerService extends DbService {
       await partnerModel.findOneAndDelete({
         _id: id,
       });
-      await cloudinary.uploader.destroy("partner/" + pid, { invalidate: true });
+      await cloudinary.uploader.destroy(pid, { invalidate: true });
     } catch (err) {
       throw err;
     }

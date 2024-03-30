@@ -13,8 +13,9 @@ class PartnerController {
       const result = await cloudinary.uploader.upload(path, {
         folder: "partner",
       });
-      body.public_id= result.public_id;
-      body.cloudinary_url = result.cloudinary_url;
+      body.public_id = result.public_id;
+      body.cloudinary_url = result.secure_url;
+    
       this.partner_svc.validatePartner(body);
       let response = await this.partner_svc.createPartner(body);
       if (response) {

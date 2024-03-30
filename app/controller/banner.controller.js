@@ -11,7 +11,7 @@ class bannerController {
         folder: "herocarousel",
       });
       body.public_id = result.public_id;
-      body.cloudinary_url = result.cloudinary_url;
+      body.cloudinary_url = result.secure_url;
       this.banner_svc.validateBanner(body);
       let data = await this.banner_svc.createBanner(body);
       if (data) {

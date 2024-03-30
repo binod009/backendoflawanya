@@ -11,11 +11,11 @@ class TestomonialController {
       if (req.file) {
         body.clientimage = req.file.filename;
       }
-      let result= await cloudinary.uploader.upload(req.file.path, {
+      let result = await cloudinary.uploader.upload(req.file.path, {
         folder: "testomonial",
       });
       body.public_id = result.public_id;
-      body.cloudinary_url = result.cloudinary_url;
+      body.cloudinary_url = result.secure_url;
       this.testo_svc.validateTestomonial(body);
       let data = await this.testo_svc.createTestomonial(body);
       res.status(200).json({
@@ -43,7 +43,10 @@ class TestomonialController {
 
   DeleteTestomonial = async (req, res, next) => {
     try {
-      let result = await this.testo_svc.deleteTestomonialById(req.params.id,req.params.pid);
+      let result = await this.testo_svc.deleteTestomonialById(
+        req.params.id,
+        req.params.pid
+      );
       if (result) {
         res.status(200).json({
           status: true,

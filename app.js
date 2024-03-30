@@ -3,6 +3,7 @@ let helmet = require("helmet");
 const Cors = require("cors");
 const routes = require("./route/index");
 
+require("dotenv").config();
 const app = express();
 app.use(helmet());
 
@@ -19,7 +20,6 @@ app.use(
   })
 );
 
-require("dotenv").config();
 app.use("/assets/", express.static("public/"));
 ///setting public directory for accessing file and images
 app.use(express.json());

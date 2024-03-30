@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const partnerSchema = new mongoose.Schema(
   {
-    profile_img: {
+    public_id: {
       type: String,
       required: true,
     },
