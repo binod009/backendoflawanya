@@ -6,14 +6,14 @@ class bannerController {
 
   bannerUpload = async (req, res, next) => {
     let body = req.body;
-
     try {
-      if (req.file) {
-        body.image = req.file.filename;
-      }
+      let result = await cloudinary.uploder.upload(req.file.path, {
+        folder: "herocarousel",
+      });
+      body.public_id = result.public_id;
+      body.cloudinary_url = result.cloudinary_url;
       this.banner_svc.validateBanner(body);
       let data = await this.banner_svc.createBanner(body);
-
       if (data) {
         res.status(200).json({
           status: true,
@@ -41,7 +41,10 @@ class bannerController {
 
   deleteBanner = async (req, res, next) => {
     try {
-      let result = await this.banner_svc.deleteBannerById(req.params.id);
+      let result = await this.banner_svc.deleteBannerById(
+        req.params.id,
+        req.params.pid
+      );
       res.status(200).json({
         status: true,
         msg: "delete successfully",

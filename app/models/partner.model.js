@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 
 const partnerSchema = new mongoose.Schema(
   {
-    image: {
+    profile_img: {
+      type: String,
+      required: true,
+    },
+
+    cloudinary_url: {
       type: String,
       required: true,
     },

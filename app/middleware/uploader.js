@@ -1,16 +1,21 @@
 const multer = require("multer");
 
+// const myStorage = multer.diskStorage({
+//   destination: (req, file, next) => {
+//     let path = "public/";
+//     next(null, path);
+//   },
+//   filename: (req, file, next) => {
+//     let unique_file = Date.now() + "-" + file.originalname;
+//     next(null, unique_file);
+//   },
+// });
 const myStorage = multer.diskStorage({
-  destination: (req, file, next) => {
-    let path = "public/static";
-    next(null, path);
-  },
-  filename: (req, file, next) => {
-    let unique_file = Date.now() + "-" + file.originalname;
-    next(null, unique_file);
-  },
+  // filename: (req, file, next) => {
+  //   let unique_file = Date.now() + "-" + file.originalname;
+  //   next(null, unique_file);
+  // },
 });
-
 const imageFilter = (req, file, next) => {
   let allowed = ["svg", "jpeg", "jpg", "bitmap", "png", "webp", "bmp"];
   let fileparts = file.originalname.split(".");

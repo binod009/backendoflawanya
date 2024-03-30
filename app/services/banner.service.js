@@ -1,12 +1,14 @@
 const DbService = require("./db.service");
 const Joi = require("joi");
+const cloudinary = require("../middleware/cloudinary");
 const bannerModel = require("../models/banner.model");
 class BannerService extends DbService {
   validateBanner = (data) => {
     try {
       let bannerSchema = Joi.object({
         bannername: Joi.string().required(),
-        image: Joi.string().required(),
+        public_id: Joi.string().required(),
+        cloudinary_url: Joi.string().required(),
         status: Joi.string().required(),
         key: Joi.string().required(),
       });
@@ -19,9 +21,10 @@ class BannerService extends DbService {
     }
   };
 
-  createBanner = async (data) => {
+  createBanner = async (data, file) => {
     try {
       let banner_obj = new bannerModel(data);
+
       return banner_obj.save();
     } catch (err) {
       throw err;
@@ -36,11 +39,15 @@ class BannerService extends DbService {
     }
   };
 
-  deleteBannerById = async (bannerid) => {
+  deleteBannerById = async (bannerid, pid) => {
     try {
-      return await bannerModel.findByIdAndDelete({
+      await cloudinary.uploader.destroy("herocarousel/" + pid, {
+        invalidate: true,
+      });
+      let res = await bannerModel.findByIdAndDelete({
         _id: bannerid,
       });
+      return res;
     } catch (excp) {
       next({ status: 404, msg: excp });
     }

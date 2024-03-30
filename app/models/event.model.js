@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 
 const eventSchema = new mongoose.Schema(
   {
-    eventimage: String,
     time: String,
     eventdate: {
       type: Date,
       required: true,
     },
+    public_id: { type: String, required: true },
+    cloudinary_url: { type: String, required: true },
     key: {
       type: String,
       required: true,

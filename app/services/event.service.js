@@ -1,6 +1,7 @@
 const DbService = require("./db.service");
 const Joi = require("joi");
 const eventModel = require("../models/event.model");
+const cloudinary = require("../middleware/cloudinary");
 class EventService extends DbService {
   validateEvents = (data) => {
     try {
@@ -42,6 +43,9 @@ class EventService extends DbService {
 
   deleteEventById = async (id) => {
     try {
+      await cloudinary.uploader.destroy("programme/" + pid, {
+        invalidate: true,
+      });
       let result = await eventModel.findByIdAndDelete({
         _id: id,
       });

@@ -1,11 +1,13 @@
 const Joi = require("joi");
 const DbService = require("./db.service");
 const partnerModel = require("../models/partner.model");
+const cloudinary = require("../middleware/cloudinary");
 class PartnerService extends DbService {
   validatePartner = (data) => {
     try {
       let partnerSchema = Joi.object({
-        image: Joi.string().empty().required(),
+        profile_img: Joi.string().required(),
+        cloudinary_url: Joi.string().required(),
         key: Joi.string().required(),
       });
       let response = partnerSchema.validate(data);
@@ -27,11 +29,12 @@ class PartnerService extends DbService {
     }
   };
 
-  deletePartnerById = async (id) => {
+  deletePartnerById = async (id, pid) => {
     try {
-      return await partnerModel.findOneAndDelete({
+      await partnerModel.findOneAndDelete({
         _id: id,
       });
+      await cloudinary.uploader.destroy("partner/" + pid, { invalidate: true });
     } catch (err) {
       throw err;
     }

@@ -1,4 +1,5 @@
 const TestomonialService = require("../../app/services/testomonial.service");
+const cloudinary = require("../middleware/cloudinary");
 class TestomonialController {
   constructor() {
     this.testo_svc = new TestomonialService();
@@ -10,7 +11,11 @@ class TestomonialController {
       if (req.file) {
         body.clientimage = req.file.filename;
       }
-      console.log("frombackend", body);
+      let result= await cloudinary.uploader.upload(req.file.path, {
+        folder: "testomonial",
+      });
+      body.public_id = result.public_id;
+      body.cloudinary_url = result.cloudinary_url;
       this.testo_svc.validateTestomonial(body);
       let data = await this.testo_svc.createTestomonial(body);
       res.status(200).json({
@@ -38,7 +43,7 @@ class TestomonialController {
 
   DeleteTestomonial = async (req, res, next) => {
     try {
-      let result = await this.testo_svc.deleteTestomonialById(req.params.id);
+      let result = await this.testo_svc.deleteTestomonialById(req.params.id,req.params.pid);
       if (result) {
         res.status(200).json({
           status: true,

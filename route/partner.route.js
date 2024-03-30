@@ -9,6 +9,6 @@ app
   .post(Auth, uploader.single("image"), partner_ctrl.CreatePartner)
   .get(Auth, partner_ctrl.getAllPartner);
 
-app.route("/partner/:id").delete(Auth, partner_ctrl.deletePartner);
+app.route("/partner/:id/:pid").delete(Auth, partner_ctrl.deletePartner);
 
 module.exports = app;

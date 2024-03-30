@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const testoSchema = new mongoose.Schema(
   {
     clientname: String,
-    clientimage: { type: String, required: true },
+    public_id: { type: String, required: true },
+    cloudinary_url: { type: String, required: true },
     clientreview: { type: String, required: true },
   },
   {

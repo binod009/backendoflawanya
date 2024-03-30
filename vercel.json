@@ -11,8 +11,6 @@
     {
       "src": "/(.*)",
       "dest": "app.js"
-    },
-    { "handle": "filesystem" },
-    { "src": "/static/(.*)", "dest": "/public/static/$1" }
+    }
   ]
 }

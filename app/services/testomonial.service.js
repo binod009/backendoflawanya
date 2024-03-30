@@ -1,7 +1,7 @@
 const testoModel = require("../models/testo.model");
 const DbService = require("./db.service");
 const Joi = require("joi");
-
+const cloudinary = require("../middleware/cloudinary");
 class TestomonialService extends DbService {
   validateTestomonial = (data) => {
     try {
@@ -39,8 +39,11 @@ class TestomonialService extends DbService {
     }
   };
 
-  deleteTestomonialById = async (id) => {
+  deleteTestomonialById = async (id, pid) => {
     try {
+      await cloudinary.uploader.destroy("testomonial/" + pid, {
+        invalidate: true,
+      });
       let result = await testoModel.findByIdAndDelete({
         _id: id,
       });

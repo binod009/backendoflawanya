@@ -1,6 +1,8 @@
 const EventService = require("../services/event.service");
 const { dateFormat, timeFormat } = require("../services/format.service");
 
+const cloudinary = require("../middleware/cloudinary");
+
 class EventController {
   constructor() {
     this.event_svc = new EventService();
@@ -11,12 +13,13 @@ class EventController {
     body.eventdate = dateFormat(req.body.eventdate);
     body.time = timeFormat(req.body.time);
     try {
-      if (req.file) {
-        body.eventimage = req.file.filename;
-      }
+      let result = cloudinary.uploader.upload(req.file.path, {
+        folder: "programme",
+      });
+      body.public_id = result.public_id;
+      body.cloudinary_url = result.cloudinary_url;
       this.event_svc.validateEvents(body);
       let data = await this.event_svc.createEvent(body);
-      console.log("frombackednRESULT", data);
       res.status(200).json({
         status: true,
         msg: "create Successfully",
@@ -42,8 +45,10 @@ class EventController {
 
   deleteEvent = async (req, res, next) => {
     try {
-      let result = await this.event_svc.deleteEventById(req.params.eventid);
-
+      let result = await this.event_svc.deleteEventById(
+        req.params.eventid,
+        req.params.pid
+      );
       res.status(200).json({
         status: true,
         msg: "delete successfully",

@@ -20,7 +20,7 @@ app.use(
 );
 
 require("dotenv").config();
-app.use("/assets/", express.static("public/static"));
+app.use("/assets/", express.static("public/"));
 ///setting public directory for accessing file and images
 app.use(express.json());
 require("./config/mongoose.config");

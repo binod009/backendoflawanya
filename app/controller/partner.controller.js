@@ -1,5 +1,6 @@
 const PartnerService = require("../services/partner.Service.js");
-
+const cloudinary = require("../middleware/cloudinary.js");
+const uploader = require("../middleware/uploader.js");
 class PartnerController {
   constructor() {
     this.partner_svc = new PartnerService();
@@ -8,9 +9,12 @@ class PartnerController {
   CreatePartner = async (req, res, next) => {
     let body = req.body;
     try {
-      if (req.file) {
-        body.image = req.file.filename;
-      }
+      let path = req.file.path;
+      const result = await cloudinary.uploader.upload(path, {
+        folder: "partner",
+      });
+      body.public_id= result.public_id;
+      body.cloudinary_url = result.cloudinary_url;
       this.partner_svc.validatePartner(body);
       let response = await this.partner_svc.createPartner(body);
       if (response) {
@@ -36,13 +40,13 @@ class PartnerController {
       next({ status: 404, msg: excp });
     }
   };
-  deletePartner = (req, res, next) => {
+  deletePartner = async (req, res, next) => {
     try {
-      let result = this.partner_svc.deletePartnerById(req.params.id);
+      console.log(req.params.pid);
+      await this.partner_svc.deletePartnerById(req.params.id, req.params.pid);
       res.status(200).json({
         status: true,
         msg: "delete successfully",
-        result: result,
       });
     } catch (excp) {
       next({ status: 404, msg: excp });
