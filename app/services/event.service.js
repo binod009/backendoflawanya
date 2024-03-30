@@ -41,9 +41,11 @@ class EventService extends DbService {
     }
   };
 
-  deleteEventById = async (id) => {
+  deleteEventById = async (id, pid) => {
+    const parts = pid.split("/");
+    const lastPart = parts[parts.length - 1];
     try {
-      await cloudinary.uploader.destroy("programme/" + pid, {
+      await cloudinary.uploader.destroy("programme/" + lastPart, {
         invalidate: true,
       });
       let result = await eventModel.findByIdAndDelete({

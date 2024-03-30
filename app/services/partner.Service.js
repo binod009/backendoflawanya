@@ -34,7 +34,9 @@ class PartnerService extends DbService {
       await partnerModel.findOneAndDelete({
         _id: id,
       });
-      await cloudinary.uploader.destroy(pid, { invalidate: true });
+      const parts = pid.split('/');
+      const lastPart = parts[parts.length - 1];
+      await cloudinary.uploader.destroy("partner/"+ lastPart, { invalidate: true });
     } catch (err) {
       throw err;
     }

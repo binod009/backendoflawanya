@@ -40,8 +40,10 @@ class TestomonialService extends DbService {
   };
 
   deleteTestomonialById = async (id, pid) => {
+    const parts = pid.split("/");
+    const lastPart = parts[parts.length - 1];
     try {
-      await cloudinary.uploader.destroy("testomonial/" + pid, {
+      await cloudinary.uploader.destroy("testomonial/" + lastPart, {
         invalidate: true,
       });
       let result = await testoModel.findByIdAndDelete({
