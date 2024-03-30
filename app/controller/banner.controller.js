@@ -1,3 +1,4 @@
+const publicidTrimmer = require("../services/Trimmer.service");
 const BannerService = require("../services/banner.service");
 class bannerController {
   constructor() {
@@ -10,7 +11,7 @@ class bannerController {
       let result = await cloudinary.uploder.upload(req.file.path, {
         folder: "herocarousel",
       });
-      body.public_id = result.public_id;
+      body.public_id = publicidTrimmer(result.public_id);
       body.cloudinary_url = result.secure_url;
       this.banner_svc.validateBanner(body);
       let data = await this.banner_svc.createBanner(body);

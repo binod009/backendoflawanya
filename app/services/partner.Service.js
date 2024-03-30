@@ -30,13 +30,15 @@ class PartnerService extends DbService {
   };
 
   deletePartnerById = async (id, pid) => {
+    console.log(pid);
     try {
       await partnerModel.findOneAndDelete({
         _id: id,
       });
-      const parts = pid.split('/');
-      const lastPart = parts[parts.length - 1];
-      await cloudinary.uploader.destroy("partner/"+ lastPart, { invalidate: true });
+
+      await cloudinary.uploader.destroy("partner/" + pid, {
+        invalidate: true,
+      });
     } catch (err) {
       throw err;
     }

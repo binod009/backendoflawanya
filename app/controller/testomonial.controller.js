@@ -1,5 +1,6 @@
 const TestomonialService = require("../../app/services/testomonial.service");
 const cloudinary = require("../middleware/cloudinary");
+const publicidTrimmer = require("../services/Trimmer.service");
 class TestomonialController {
   constructor() {
     this.testo_svc = new TestomonialService();
@@ -14,7 +15,7 @@ class TestomonialController {
       let result = await cloudinary.uploader.upload(req.file.path, {
         folder: "testomonial",
       });
-      body.public_id = result.public_id;
+      body.public_id = publicidTrimmer(result.public_id);
       body.cloudinary_url = result.secure_url;
       this.testo_svc.validateTestomonial(body);
       let data = await this.testo_svc.createTestomonial(body);

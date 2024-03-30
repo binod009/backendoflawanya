@@ -1,6 +1,7 @@
 const PartnerService = require("../services/partner.Service.js");
 const cloudinary = require("../middleware/cloudinary.js");
 const uploader = require("../middleware/uploader.js");
+const publicidTrimmer = require("../services/Trimmer.service.js");
 class PartnerController {
   constructor() {
     this.partner_svc = new PartnerService();
@@ -13,7 +14,8 @@ class PartnerController {
       const result = await cloudinary.uploader.upload(path, {
         folder: "partner",
       });
-      body.public_id = result.public_id;
+    
+      body.public_id = publicidTrimmer(result.public_id);
       body.cloudinary_url = result.secure_url;
     
       this.partner_svc.validatePartner(body);

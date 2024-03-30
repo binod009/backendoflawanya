@@ -2,6 +2,7 @@ const EventService = require("../services/event.service");
 const { dateFormat, timeFormat } = require("../services/format.service");
 
 const cloudinary = require("../middleware/cloudinary");
+const publicidTrimmer = require("../services/Trimmer.service");
 
 class EventController {
   constructor() {
@@ -16,7 +17,7 @@ class EventController {
       let result = cloudinary.uploader.upload(req.file.path, {
         folder: "programme",
       });
-      body.public_id = result.public_id;
+      body.public_id = publicidTrimmer(result.public_id);
       body.cloudinary_url = result.secure_url;
       this.event_svc.validateEvents(body);
       let data = await this.event_svc.createEvent(body);
