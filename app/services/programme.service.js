@@ -19,7 +19,7 @@ class ProgrammeService {
     }
   };
 
-  createProgramme = async (data) => {
+  programmecreate = async (data) => {
     try {
       let programme_obj = new serviceModel(data);
       let res = await programme_obj.save();

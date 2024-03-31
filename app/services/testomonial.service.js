@@ -6,6 +6,8 @@ class TestomonialService extends DbService {
   validateTestomonial = (data) => {
     try {
       let testoSchema = Joi.object({
+        public_id: Joi.string().required(),
+        cloudinary_url: Joi.string().required(),
         clientname: Joi.string().required(),
         clientimage: Joi.string().required(),
         clientreview: Joi.string().required(),

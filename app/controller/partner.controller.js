@@ -1,6 +1,5 @@
 const PartnerService = require("../services/partner.Service.js");
 const cloudinary = require("../middleware/cloudinary.js");
-const uploader = require("../middleware/uploader.js");
 const publicidTrimmer = require("../services/Trimmer.service.js");
 class PartnerController {
   constructor() {
@@ -9,17 +8,16 @@ class PartnerController {
 
   CreatePartner = async (req, res, next) => {
     let body = req.body;
+
     try {
-      let path = req.file.path;
-      const result = await cloudinary.uploader.upload(path, {
+      const result = await cloudinary.uploader.upload(req.file.path, {
         folder: "partner",
       });
-    
+
       body.public_id = publicidTrimmer(result.public_id);
       body.cloudinary_url = result.secure_url;
-    
       this.partner_svc.validatePartner(body);
-      let response = await this.partner_svc.createPartner(body);
+      let response = await this.partner_svc.partnercreate(body);
       if (response) {
         res.status(200).json({
           status: true,

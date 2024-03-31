@@ -19,7 +19,7 @@ class PartnerService extends DbService {
     }
   };
 
-  createPartner = async (data) => {
+  partnercreate = async (data) => {
     try {
       let event_obj = new partnerModel(data);
       let res = await event_obj.save();

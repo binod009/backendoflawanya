@@ -21,7 +21,7 @@ class BannerService extends DbService {
     }
   };
 
-  createBanner = async (data, file) => {
+  bannercreate = async (data, file) => {
     try {
       let banner_obj = new bannerModel(data);
 

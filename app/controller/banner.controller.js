@@ -1,21 +1,22 @@
 const publicidTrimmer = require("../services/Trimmer.service");
 const BannerService = require("../services/banner.service");
+const cloudinary = require("../middleware/cloudinary");
 class bannerController {
   constructor() {
     this.banner_svc = new BannerService();
   }
 
-  bannerUpload = async (req, res, next) => {
+  createbanner = async (req, res, next) => {
     let body = req.body;
     try {
-      let result = await cloudinary.uploder.upload(req.file.path, {
+      let result = await cloudinary.uploader.upload(req.file.path, {
         folder: "herocarousel",
       });
       body.public_id = publicidTrimmer(result.public_id);
       body.cloudinary_url = result.secure_url;
       this.banner_svc.validateBanner(body);
-      let data = await this.banner_svc.createBanner(body);
-      if (data) {
+      let data = await this.banner_svc.bannercreate(body);
+      if (true) {
         res.status(200).json({
           status: true,
           msg: "created successfully",

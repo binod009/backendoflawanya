@@ -9,7 +9,7 @@ class ProgrammeController {
     let body = req.body;
     try {
       this.programme_svc.programmeValidator(body);
-      let result = await this.programme_svc.createProgramme(body);
+      let result = await this.programme_svc.programmecreate(body);
       res.status(200).json({
         status: true,
         msg: "create successfully",
