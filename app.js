@@ -15,7 +15,7 @@ app.use(helmet());
 // Use CORS middleware with options
 app.use(
   Cors({
-    origin: process.env.ORIGIN,
+    origin: "https://frontendlawanya.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"], // Add the HTTP methods you need
     allowedHeaders: [
       "Content-Type",
